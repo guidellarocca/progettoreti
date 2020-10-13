@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>BeerHere Chat</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+        <link rel='stylesheet' href='public/css/stylechat.css' type="text/html" />
+    </head>
+    <body>
+
+        <div id="mario-chat">
+            <h3>BeerChat <i class="fa fa-group"></i></h3>
+            <div id="chat-window">
+                <div id="output"></div>
+                <div id="feedback"></div>
+            </div>
+            <input id="handle" type="text" placeholder="Nickname" />
+            <input id="message" type="text" placeholder="Messaggio" />
+            <button id="send">Invia</button>
+        </div>
+
+
+    </body>
+  
+<script>
+    // Make connection
+    var socket = io.connect('http://localhost:8080');
+
+    // Query DOM
+    var message = document.getElementById('message'),
+        handle = document.getElementById('handle'),
+        btn = document.getElementById('send'),
+        output = document.getElementById('output'),
+        feedback = document.getElementById('feedback');
+
+    // Emit events
+    btn.addEventListener('click', function(){
+        socket.emit('chat', {
+            message: message.value,
+            handle: handle.value
+        });
+        message.value = "";
+    });
+
+    message.addEventListener('keypress', function(){
+        socket.emit('typing', handle.value);
+    })
+
+    // Listen for events
+    socket.on('chat', function(data){
+        feedback.innerHTML = '';
+        output.innerHTML += '<p><strong>' + data.handle + ': </strong>' + data.message + '</p>';
+    });
+
+    socket.on('typing', function(data){
+        feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
+    });
+
+</script>
+</html>

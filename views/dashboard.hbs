@@ -27,9 +27,10 @@
         <div id="floating-panel">
             <input id="address" type="textbox" placeholder="Inserisci luogo">
             <input id="submit" type="button" value="Viaggia">
-            <input id="what" type="textbox" placeholder="Cosa cerchi?">
             <input id="search" type = "button" value="Cerca">
             <input id="delete" type = "button" value="Clear">
+            <button class= "btn" onclick="window.location.href='chat'">Community <i class="fa fa-group"></i></button>
+
         </div>
         <br></br>
         <div id="map"></div>
@@ -212,7 +213,7 @@
             let request = {
                 location: position,
                 radius: 400,
-                keyword: document.getElementById('what').value
+                keyword: 'pub'
             };
 
             service = new google.maps.places.PlacesService(map);
@@ -228,12 +229,18 @@
 
         // SET MARKERS AT THE LOCATION OF EACH PLACE RESULT
         function createMarkers(places) {
+            //https://img.icons8.com/dusk/64/000000/beer.png Immagine birra-secchio
+            var image = {
+                url:'https://img.icons8.com/officel/40/000000/beer-bottle-cap.png',
+            }
             places.forEach(place => {
                 var marker = new google.maps.Marker({
                 position: place.geometry.location,
                 map: map,
                 title: place.name,
-                });          
+                icon: image,
+                });        
+
                 // Adjust the map bounds to include the location of this marker
                 bounds.extend(place.geometry.location);
                 markers.push(marker);

@@ -1,4 +1,5 @@
 const express = require('express')
+const amqp = require('amqplib/callback_api')
 const router = express.Router()
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
@@ -19,6 +20,8 @@ router.get('/dashboard', ensureAuth, (req, res) => {
     })
 })
 
+  
+
 // @desc  About Us
 // @route GET /about
 router.get('/about', ensureAuth, (req, res) => {
@@ -26,6 +29,21 @@ router.get('/about', ensureAuth, (req, res) => {
         name: req.user.firstName,
     })
 })
+
+router.get('/chat', ensureAuth, (req,res) => {
+    amqp.connect('amqp://localhost', (err, conn) => {
+        conn.createChannel((err, ch) => {
+            var queue = 'FirstQueue';
+            var message = 'Utente in messaggistica';
+            ch.assertQueue(queue,{durable:false});
+            ch.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+            console.log('Utente in messaggistica');
+        });
+        
+    });
+  
+      res.render('./chat', { name: req.user.firstName,});
+  })
 
 
 module.exports = router

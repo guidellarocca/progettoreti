@@ -8,6 +8,8 @@ const passport = require('passport')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const connectDB = require('./config/db')
+const socket = require('socket.io')
+const amqp = require('amqplib/callback_api')
 
 
 // Load config
@@ -28,6 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 // Handlebars
 app.engine('.hbs', exphbs({defaultLayout:'main', extname: '.hbs'}))
 app.set('view engine', '.hbs')
+
 
 // Sessions
 app.use(
@@ -57,3 +60,20 @@ app.listen(
     PORT,
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 )
+const io = socket(8080);
+io.on('connection', (socket) => {
+
+    console.log('made socket connection', socket.id);
+
+    // Handle chat event
+    socket.on('chat', function(data){
+        // console.log(data);
+        io.sockets.emit('chat', data);
+    });
+
+    // Handle typing event
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
+
+});

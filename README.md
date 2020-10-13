@@ -19,9 +19,9 @@ L'applicazione da la possibilità, ai soli utenti registrati, di localizzarsi e 
 
 - RabbitMQ(porta 5672) e WebSocket(porta 8080) devono essere in esecuzione su _localhost_.
 
-- La connessione a MongoDB avviene tramite mongoose.connect(mongodb+srv://guidellarocca:test@cluster0-glky4.mongodb.net/test?retryWrites=true&w=majority).
+- La connessione a MongoDB avviene tramite mongoose.connect(mongodb+srv://username:test@cluster0-0000.mongodb.net/test?retryWrites=true&w=majority).
   
-- Per la parte asincrona eseguire `node reciever.js` nella directory rabbitMQ.
+- Per la parte asincrona eseguire `node receiver.js` nella directory rabbitMQ.
 
 ## **REST API**
 

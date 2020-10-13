@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # BeerHere
 L'applicazione da la possibilità, ai soli utenti registrati, di localizzarsi e cercare birrerie in un raggio prestabilito.
 
@@ -40,3 +41,9 @@ L'applicazione da la possibilità, ai soli utenti registrati, di localizzarsi e 
 
 - RabbitMQ: In `app.js` viene generata, per la get request di quando si entra nella community, la connessione e creazione del canale di comunicazione con il reciever, che poi provvederà ad inviare il messaggio tramite la funzione `sendToQueue`. Il reciever, una volta avviato, riceverà sulla propria console, tutte le richieste fatte all'interno della nostra applicazione tramite la funzione `consume`. 
 
+=======
+# progettoreti
+Progetto Reti di Calcolatori 2020
+
+per iniziare --> "npm start"
+>>>>>>> b745679bd4c3d75f80133994321348ff5ec778a5

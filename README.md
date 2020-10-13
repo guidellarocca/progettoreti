@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # BeerHere
 L'applicazione da la possibilità, ai soli utenti registrati, di localizzarsi e cercare birrerie in un raggio prestabilito.
 
